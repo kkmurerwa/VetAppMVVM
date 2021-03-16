@@ -23,7 +23,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
 
-  late DateTime currentBackPressTime;
+  DateTime currentBackPressTime = DateTime.now();
 
   List<String> _pageTitles = <String>["Dashboard", "Appointments", "Payments", "Reports"];
 
@@ -36,8 +36,7 @@ class _HomeState extends State<Home> {
       });
       return Future.value(false);
     } else {
-      if (currentBackPressTime == null ||
-          now.difference(currentBackPressTime) > Duration(seconds: 3)) {
+      if (now.difference(currentBackPressTime) > Duration(seconds: 3)) {
         currentBackPressTime = now;
         print("Press again to leave app");
 
@@ -53,8 +52,9 @@ class _HomeState extends State<Home> {
         // );
 
         return Future.value(false);
+      } else {
+        return Future.value(true);
       }
-      return Future.value(true);
     }
   }
 
