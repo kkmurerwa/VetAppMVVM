@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vet_app_mvvm/viewmodels/appointments_vm.dart';
+import 'package:vet_app_mvvm/viewmodels/payments_vm.dart';
 import 'package:vet_app_mvvm/views/home.dart';
 
 void main() {
@@ -9,6 +10,7 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AppointmentsVM()),
+        ChangeNotifierProvider(create: (_) => PaymentsVM()),
       ],
       child: const MyApp(),
     ),

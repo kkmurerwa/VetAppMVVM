@@ -62,12 +62,12 @@ class _$AppDatabase extends AppDatabase {
 
   AppointmentDao? _appointmentsDaoInstance;
 
-  PaymentDao? _paymentDaoInstance;
+  PaymentDao? _paymentsDaoInstance;
 
   Future<sqflite.Database> open(String path, List<Migration> migrations,
       [Callback? callback]) async {
     final databaseOptions = sqflite.OpenDatabaseOptions(
-      version: 1,
+      version: 2,
       onConfigure: (database) async {
         await database.execute('PRAGMA foreign_keys = ON');
       },
@@ -82,9 +82,9 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `Appointment` (`id` INTEGER NOT NULL, `ownerName` TEXT NOT NULL, `phoneNumber` TEXT NOT NULL, `animalName` TEXT NOT NULL, `breed` TEXT NOT NULL, `animalSex` TEXT NOT NULL, `animalWeight` TEXT NOT NULL, `animalAge` TEXT NOT NULL, `appointmentType` TEXT NOT NULL, `location` TEXT NOT NULL, `appointmentStatus` TEXT NOT NULL, `dateTime` INTEGER NOT NULL, `updatePin` INTEGER NOT NULL, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `Appointment` (`id` INTEGER NOT NULL, `ownerName` TEXT NOT NULL, `phoneNumber` TEXT NOT NULL, `animalName` TEXT NOT NULL, `breed` TEXT NOT NULL, `animalSex` TEXT NOT NULL, `animalWeight` TEXT NOT NULL, `animalAge` TEXT NOT NULL, `appointmentType` TEXT NOT NULL, `location` TEXT NOT NULL, `appointmentStatus` TEXT NOT NULL, `dateTime` INTEGER NOT NULL, `isPaid` INTEGER NOT NULL, PRIMARY KEY (`id`))');
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `Payment` (`id` INTEGER NOT NULL, `appointmentId` TEXT NOT NULL, `amountPaid` INTEGER NOT NULL, `date` INTEGER NOT NULL, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `Payment` (`id` INTEGER NOT NULL, `appointmentId` INTEGER NOT NULL, `amountPaid` INTEGER NOT NULL, `date` INTEGER NOT NULL, `paymentMethod` TEXT NOT NULL, PRIMARY KEY (`id`))');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -99,8 +99,8 @@ class _$AppDatabase extends AppDatabase {
   }
 
   @override
-  PaymentDao get paymentDao {
-    return _paymentDaoInstance ??= _$PaymentDao(database, changeListener);
+  PaymentDao get paymentsDao {
+    return _paymentsDaoInstance ??= _$PaymentDao(database, changeListener);
   }
 }
 
@@ -123,7 +123,7 @@ class _$AppointmentDao extends AppointmentDao {
                   'location': item.location,
                   'appointmentStatus': item.appointmentStatus,
                   'dateTime': item.dateTime,
-                  'updatePin': item.updatePin ? 1 : 0
+                  'isPaid': item.isPaid ? 1 : 0
                 });
 
   final sqflite.DatabaseExecutor database;
@@ -150,7 +150,7 @@ class _$AppointmentDao extends AppointmentDao {
             row['location'] as String,
             row['appointmentStatus'] as String,
             row['dateTime'] as int,
-            (row['updatePin'] as int) != 0));
+            (row['isPaid'] as int) != 0));
   }
 
   @override
@@ -170,7 +170,8 @@ class _$PaymentDao extends PaymentDao {
                   'id': item.id,
                   'appointmentId': item.appointmentId,
                   'amountPaid': item.amountPaid,
-                  'date': item.date
+                  'date': item.date,
+                  'paymentMethod': item.paymentMethod
                 });
 
   final sqflite.DatabaseExecutor database;
@@ -182,13 +183,14 @@ class _$PaymentDao extends PaymentDao {
   final InsertionAdapter<Payment> _paymentInsertionAdapter;
 
   @override
-  Future<List<Payment>> findAllPayments() async {
+  Future<List<Payment>> fetchAllPayments() async {
     return _queryAdapter.queryList('SELECT * FROM Payment',
         mapper: (Map<String, Object?> row) => Payment(
             row['id'] as int,
-            row['appointmentId'] as String,
+            row['appointmentId'] as int,
             row['amountPaid'] as int,
-            row['date'] as int));
+            row['date'] as int,
+            row['paymentMethod'] as String));
   }
 
   @override

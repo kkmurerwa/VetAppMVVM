@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vet_app_mvvm/data/entity/appointments.dart';
 import 'package:vet_app_mvvm/res/colors/colors.dart';
-import 'package:vet_app_mvvm/res/decorations/nm-file.dart';
+import 'package:vet_app_mvvm/res/decorations/neuromorphic_views.dart';
 import 'package:vet_app_mvvm/viewmodels/appointments_vm.dart';
 import 'package:vet_app_mvvm/util/config.dart';
 
@@ -14,7 +14,7 @@ class Appointments extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Insert placeholder
-    // context.read<AppointmentsVM>().insertPlaceholderData();
+    context.read<AppointmentsVM>().insertPlaceholderData();
 
     // Initialize function to fetch appointments from DB
     context.read<AppointmentsVM>().fetchAllAppointments();
@@ -106,29 +106,6 @@ class AppointmentList extends StatelessWidget {
         );
       },
     );
-
-    // return ListView.builder(
-    //   itemCount: appointmentList.length,
-    //   itemBuilder: (context, index) {
-    //
-    //     Appointment appointment = appointmentList[index];
-    //
-    //     return ListTile(
-    //       contentPadding: EdgeInsets.all(10),
-    //       title: Text(appointment.ownerName),
-    //     );
-    //   },
-    // );
-
-
-    // return Text(
-    //   '${context.watch<AppointmentsVM>().appointments.length}',
-    //   key: const Key('counterState'),
-    //   style: TextStyle(
-    //       fontSize: 120,
-    //       fontWeight: FontWeight.w400
-    //   ),
-    // );
   }
 }
 

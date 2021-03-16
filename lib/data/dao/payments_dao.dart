@@ -4,7 +4,7 @@ import 'package:vet_app_mvvm/data/entity/payments.dart';
 @dao
 abstract class PaymentDao {
   @Query('SELECT * FROM Payment')
-  Future<List<Payment>> findAllPayments();
+  Future<List<Payment>> fetchAllPayments();
 
   // @Query('SELECT * FROM Payment WHERE id = IS NOT NULL :id')
   // Stream<Payment> findPaymentById(int id);
