@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.vet_app_mvvm">
    <application
-        android:label="vet_app_mvvm"
+        android:label="Vet App"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

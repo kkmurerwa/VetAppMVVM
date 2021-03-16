@@ -14,7 +14,7 @@ class Appointments extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Insert placeholder
-    context.read<AppointmentsVM>().insertPlaceholderData();
+    // context.read<AppointmentsVM>().insertPlaceholderData();
 
     // Initialize function to fetch appointments from DB
     context.read<AppointmentsVM>().fetchAllAppointments();
