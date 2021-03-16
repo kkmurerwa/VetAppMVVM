@@ -25,13 +25,21 @@ class AppointmentsVM with ChangeNotifier, DiagnosticableTreeMixin {
     notifyListeners();
   }
 
-  Future<void> createNewAppointment() async {
+  void insertPlaceholderData() async {
     final database = await $FloorAppDatabase.databaseBuilder('app_database.db').build();
 
     final appointmentDao = database.appointmentsDao;
-    final appointment = Appointment(1, "Kenneth", "0705352411", "Dog", "German Shepherd",
-        "Male", "27", "3", "visit", "clinic", "pending", 101010101, false);
-    notifyListeners();
+    final appointment1 = Appointment(2, "John", "0705352411", "Cat", "Persian",
+        "Female", "13", "2", "visit", "clinic", "pending", 101010101, false);
+
+    final appointment2 = Appointment(3, "Caleb", "0705352411", "Cow", "Friesian",
+        "Female", "142", "5", "visit", "clinic", "pending", 101010101, false);
+
+    final appointment3 = Appointment(4, "Isaac", "0705352411", "Dog", "Chihuahua",
+        "Male", "22", "3", "visit", "clinic", "pending", 101010101, false);
+
+    appointmentDao.insertAppointment(appointment2);
+    appointmentDao.insertAppointment(appointment3);
   }
 
   /// Makes `Counter` readable inside the devtools by listing all of its properties

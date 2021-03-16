@@ -3,6 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vet_app_mvvm/res/colors/colors.dart';
 import 'package:vet_app_mvvm/views/appointments.dart';
+import 'package:vet_app_mvvm/views/dashboard.dart';
+import 'package:vet_app_mvvm/views/payments.dart';
+import 'package:vet_app_mvvm/views/reports.dart';
 
 class HomePage extends StatelessWidget {
 
@@ -66,10 +69,10 @@ class _HomeState extends State<Home> {
     _appointments.build(context);
 
     // Add pages to widgets list
-    _widgetOptions.add(_appointments);
-    _widgetOptions.add(_appointments);
-    _widgetOptions.add(_appointments);
-    _widgetOptions.add(_appointments);
+    _widgetOptions.add(Dashboard());
+    _widgetOptions.add(Appointments());
+    _widgetOptions.add(Payments());
+    _widgetOptions.add(Reports());
 
     return Scaffold(
         appBar: AppBar(

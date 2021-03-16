@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vet_app_mvvm/data/entity/appointments.dart';
+import 'package:vet_app_mvvm/res/colors/colors.dart';
 import 'package:vet_app_mvvm/res/decorations/nm-file.dart';
 import 'package:vet_app_mvvm/viewmodels/appointments_vm.dart';
 import 'package:vet_app_mvvm/util/config.dart';
@@ -12,13 +13,21 @@ class Appointments extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Insert placeholder
+    // context.read<AppointmentsVM>().insertPlaceholderData();
 
     // Initialize function to fetch appointments from DB
     context.read<AppointmentsVM>().fetchAllAppointments();
 
     return Scaffold(
-      body: Center(
-        child: AppointmentList(),
+      body: AppointmentList(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){},
+        backgroundColor: colorPrimary,
+        child: Icon(
+          Icons.add,
+          color: colorText,
+        ),
       ),
     );
   }

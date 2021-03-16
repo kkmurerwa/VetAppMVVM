@@ -3,7 +3,7 @@ class Config{
 
   static String returnAnimalIcon(String animal){
     String url = "";
-    switch (animal){
+    switch (animal.toLowerCase()){
       case "dog":
         url = "dog-icon.png";
         break;
