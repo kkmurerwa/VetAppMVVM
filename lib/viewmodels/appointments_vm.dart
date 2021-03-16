@@ -33,4 +33,11 @@ class AppointmentsVM with ChangeNotifier, DiagnosticableTreeMixin {
         "Male", "27", "3", "visit", "clinic", "pending", 101010101, false);
     notifyListeners();
   }
+
+  /// Makes `Counter` readable inside the devtools by listing all of its properties
+  // @override
+  // void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  //   super.debugFillProperties(properties);
+  //   properties.add(IntProperty('count', count));
+  // }
 }

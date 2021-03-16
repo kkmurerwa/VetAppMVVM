@@ -17,11 +17,6 @@ class Appointments extends StatelessWidget {
     context.read<AppointmentsVM>().fetchAllAppointments();
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-            "All Appointments"
-        ),
-      ),
       body: Center(
         child: AppointmentList(),
       ),
@@ -103,18 +98,18 @@ class AppointmentList extends StatelessWidget {
       },
     );
 
-    return ListView.builder(
-      itemCount: appointmentList.length,
-      itemBuilder: (context, index) {
-
-        Appointment appointment = appointmentList[index];
-
-        return ListTile(
-          contentPadding: EdgeInsets.all(10),
-          title: Text(appointment.ownerName),
-        );
-      },
-    );
+    // return ListView.builder(
+    //   itemCount: appointmentList.length,
+    //   itemBuilder: (context, index) {
+    //
+    //     Appointment appointment = appointmentList[index];
+    //
+    //     return ListTile(
+    //       contentPadding: EdgeInsets.all(10),
+    //       title: Text(appointment.ownerName),
+    //     );
+    //   },
+    // );
 
 
     // return Text(
